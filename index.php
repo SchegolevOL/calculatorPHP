@@ -1,3 +1,42 @@
+<?php error_reporting(-1);
+
+function string_to_float(string $str):bool{
+    if($str=='0'|| floatval($str)==0){
+        return true;
+    }
+    return false;
+}
+
+$res=0;
+$err='';
+print_r($_GET);
+$left_ampersand=0;
+$right_ampersand=0;
+
+$left_ampersand=$_GET['left_ampersand'];
+$right_ampersand=$_GET['right_ampersand'];
+/*if (!string_to_float($left_ampersand)){
+    $err="the left ampersand is invalid";
+}if (!string_to_float($right_ampersand)){
+    $err="the right ampersand is invalid";
+}*/
+
+if (isset($_GET['action'])){
+    $right_ampersand = floatval($right_ampersand);
+    $left_ampersand = floatval($left_ampersand);
+    $res = match ($_GET['action']) {
+        'addition' => $left_ampersand+$right_ampersand,
+        'subtraction' => $left_ampersand-$right_ampersand,
+        'multiplication' => $left_ampersand*$right_ampersand,
+        'division' => $left_ampersand/$right_ampersand
+    };
+    $err='';
+}
+
+
+?>
+
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -10,52 +49,24 @@
 </head>
 <body>
 
-
-<?php error_reporting(-1);
-$res=0;
-$err='';
-
-//if (!is_float($_GET['left_ampersand'])) {
-//    $err = 'the left ampersand is not valid';
-//
-//}
-//elseif (!is_float($_GET['right_ampersand'])) {
-//    $err = 'the right ampersand is not valid';
-//}
-//else {
-if (isset($_GET['action'])!=null){
-    $res = match ($_GET['action']) {
-        'addition' => floatval($_GET['left_ampersand']) + floatval($_GET['right_ampersand']),
-        'subtraction' => floatval($_GET['left_ampersand']) - floatval($_GET['right_ampersand']),
-        'multiplication' => floatval($_GET['left_ampersand']) * floatval($_GET['right_ampersand']),
-        'division' => floatval($_GET['left_ampersand']) / floatval($_GET['right_ampersand'])
-    };
-}
-
-
-
-//}
-
-//if($_GET['number_left']==''&&$_GET['number_right']!='')$err="the left ampersand is not known";
-//if(!$_GET['number_left']==''&&$_GET['number_right']=='')$err="the right ampersand is not known";
-
-?>
-
 <div class="input-group mb-3">
     <form action="" method="get">
-        <input type="text" name="left_ampersand" placeholder="Enter number left"class="">
+        <input type="text" name="left_ampersand" placeholder="Enter number left"class="" value="<?=$right_ampersand?>" onclick="value=null">
         <select name="action" id="" class="form-select-sm text-center">
             <option value="addition">+</option>
             <option value="subtraction">-</option>
             <option value="multiplication">*</option>
             <option value="division">/</option>
         </select>
-        <input type="text" name="right_ampersand" placeholder="Enter number right" left"class="form-control">
+        <input type="text" name="right_ampersand" placeholder="Enter number right left" value="<?=$right_ampersand?>" onclick="value=null">
         <button type="submit" class="btn btn-primary">=</button>
         <lable class="focus-ring"><?=$res?></lable>
     </form>
 
 </div>
 <lamle class="text-danger"><?=$err?></lamle>
+
+
+
 </body>
 </html>
