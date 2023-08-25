@@ -1,25 +1,17 @@
 <?php error_reporting(-1);
 
-function string_to_float(string $str):bool{
-    if($str=='0'|| floatval($str)==0){
-        return true;
-    }
-    return false;
-}
+
 
 $res=0;
 $err='';
 print_r($_GET);
 $left_ampersand=0;
 $right_ampersand=0;
+if(isset($_GET['left_ampersand'])) $left_ampersand=$_GET['left_ampersand'];
 
-$left_ampersand=$_GET['left_ampersand'];
-$right_ampersand=$_GET['right_ampersand'];
-/*if (!string_to_float($left_ampersand)){
-    $err="the left ampersand is invalid";
-}if (!string_to_float($right_ampersand)){
-    $err="the right ampersand is invalid";
-}*/
+if(isset($_GET['right_ampersand']))$right_ampersand=$_GET['right_ampersand'];
+
+
 
 if (isset($_GET['action'])){
     $right_ampersand = floatval($right_ampersand);
